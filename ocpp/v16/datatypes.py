@@ -150,8 +150,8 @@ class Firmware:
     location: str
     retrieve_date_time: str
     signing_certificate: str
+    signature: str
     install_date_time: Optional[str] = None
-    signature: Optional[str] = None
 
 
 @dataclass
@@ -164,3 +164,13 @@ class LogParameters:
     remote_location: str
     oldest_timestamp: Optional[str] = None
     latest_timestamp: Optional[str] = None
+
+
+@dataclass
+class TransactionData:
+    """
+    Contains information about a transaction.
+    """
+
+    timestamp: str
+    sampledValue: List[SampledValue]

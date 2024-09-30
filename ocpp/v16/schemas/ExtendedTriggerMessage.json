@@ -11,20 +11,20 @@
         "FirmwareStatusNotification",
         "Heartbeat",
         "MeterValues",
-        "SignChargePointCertificate",        
-        "StatusNotification"        
+        "SignChargePointCertificate",
+        "StatusNotification"
       ]
-    }	  
+    }
   },
   "type": "object",
   "additionalProperties": false,
-  "properties": {    
+  "properties": {
     "requestedMessage": {
       "$ref": "#/definitions/MessageTriggerEnumType"
     },
-	"connectorId": {
-          "type": "integer"
-    }  
+    "connectorId": {
+      "type": "integer"
+    }
   },
   "required": [
     "requestedMessage"

@@ -1,7 +1,16 @@
 import warnings
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from dataclasses import dataclass
+from typing import List, Optional
 
+from ocpp.v16.datatypes import (
+    AuthorizationData,
+    CertificateHashData,
+    ChargingProfile,
+    Firmware,
+    LogParameters,
+    MeterValue,
+    TransactionData,
+)
 from ocpp.v16.enums import (
     AvailabilityType,
     CertificateUse,
@@ -11,8 +20,10 @@ from ocpp.v16.enums import (
     ChargingRateUnitType,
     DiagnosticsStatus,
     FirmwareStatus,
+    SignedFirmwareStatus,
     Log,
     MessageTrigger,
+    ExtendedMessageTrigger,
     Reason,
     ResetType,
     UpdateType,
@@ -74,12 +85,12 @@ class ClearChargingProfile:
 
 @dataclass
 class DeleteCertificate:
-    certificate_hash_data: Dict
+    certificate_hash_data: CertificateHashData
 
 
 @dataclass
 class ExtendedTriggerMessage:
-    requested_message: MessageTrigger
+    requested_message: ExtendedMessageTrigger
     connector_id: Optional[int] = None
 
 
@@ -116,7 +127,7 @@ class GetLocalListVersion:
 
 @dataclass
 class GetLog:
-    log: Dict
+    log: LogParameters
     log_type: Log
     request_id: int
     retries: Optional[int] = None
@@ -133,7 +144,7 @@ class InstallCertificate:
 class RemoteStartTransaction:
     id_tag: str
     connector_id: Optional[int] = None
-    charging_profile: Optional[Dict] = None
+    charging_profile: Optional[ChargingProfile] = None
 
 
 @dataclass
@@ -159,19 +170,19 @@ class Reset:
 class SendLocalList:
     list_version: int
     update_type: UpdateType
-    local_authorization_list: List = field(default_factory=list)
+    local_authorization_list: Optional[List[AuthorizationData]] = None
 
 
 @dataclass
 class SetChargingProfile:
     connector_id: int
-    cs_charging_profiles: Dict
+    cs_charging_profiles: ChargingProfile
 
 
 @dataclass
 class SignedUpdateFirmware:
     request_id: int
-    firmware: Dict
+    firmware: Firmware
     retries: Optional[int] = None
     retry_interval: Optional[int] = None
 
@@ -235,13 +246,13 @@ class Heartbeat:
 @dataclass
 class LogStatusNotification:
     status: UploadLogStatus
-    request_id: int
+    request_id: Optional[int] = None
 
 
 @dataclass
 class MeterValues:
     connector_id: int
-    meter_value: List = field(default_factory=list)
+    meter_value: List[MeterValue]
     transaction_id: Optional[int] = None
 
 
@@ -259,8 +270,8 @@ class SignCertificate:
 
 @dataclass
 class SignedFirmwareStatusNotification:
-    status: FirmwareStatus
-    request_id: int
+    status: SignedFirmwareStatus
+    request_id: Optional[int] = None
 
 
 @dataclass
@@ -279,7 +290,7 @@ class StopTransaction:
     transaction_id: int
     reason: Optional[Reason] = None
     id_tag: Optional[str] = None
-    transaction_data: Optional[List] = None
+    transaction_data: Optional[List[TransactionData]] = None
 
 
 @dataclass
@@ -397,7 +408,7 @@ class DeleteCertificatePayload(DeleteCertificate):
 
 # Dataclass soon to be deprecated use equal class name without the suffix 'Payload'
 @dataclass
-class ExtendedTriggerMessagePayload(ExtendedTriggerMessage):
+class ExtendedTriggerMessagePayload(ExtendedMessageTrigger):
     def __post_init__(self):
         warnings.warn(
             (

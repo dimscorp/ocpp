@@ -6,15 +6,15 @@
         "connectorId": {
             "type": "integer"
         },
-    "duration": {
-        "type": "integer"
-    },
-    "chargingRateUnit": {
-        "type": "string",
-        "additionalProperties": false,
-        "enum": [
-            "A",
-            "W"
+        "duration": {
+            "type": "integer"
+        },
+        "chargingRateUnit": {
+            "type": "string",
+            "additionalProperties": false,
+            "enum": [
+                "A",
+                "W"
             ]
         }
     },

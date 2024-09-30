@@ -456,7 +456,12 @@ class FirmwareStatus(StrEnum):
     installing = "Installing"
     installed = "Installed"
 
-    # Only for SignedFirmwareStatusNotification.reg
+
+class SignedFirmwareStatus(FirmwareStatus):
+    """
+    Status of a signed firmware download as reported in SignedFirmwareStatusNotification.req
+    """
+
     download_scheduled = "DownloadScheduled"
     download_paused = "DownloadPaused"
     install_rebooting = "InstallRebooting"
@@ -567,7 +572,7 @@ class Measurand(StrEnum):
     voltage = "Voltage"
 
 
-class MessageTrigger(StrEnum):
+class BaseMessageTrigger(StrEnum):
     """
     Type of request to be triggered in a TriggerMessage.req
     """
@@ -579,10 +584,20 @@ class MessageTrigger(StrEnum):
     meter_values = "MeterValues"
     status_notification = "StatusNotification"
 
-    # Only for TriggerMessage.req
+
+class MessageTrigger(BaseMessageTrigger):
+    """
+    Type of request to be triggered in a TriggerMessage.req
+    """
+
     diagnostics_status_notification = "DiagnosticsStatusNotification"
 
-    # Only for ExtendedTriggerMessage.req
+
+class ExtendedMessageTrigger(BaseMessageTrigger):
+    """
+    Type of request to be triggered in an ExtendedTriggerMessage.req
+    """
+
     log_status_notification = "LogStatusNotification"
     sign_charge_point_certificate = "SignChargePointCertificate"
 

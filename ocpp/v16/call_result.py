@@ -1,8 +1,13 @@
 import warnings
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import List, Optional
 
-from ocpp.v16.datatypes import IdTagInfo
+from ocpp.v16.datatypes import (
+    CertificateHashData,
+    ChargingSchedule,
+    IdTagInfo,
+    KeyValue,
+)
 from ocpp.v16.enums import (
     AvailabilityStatus,
     CancelReservationStatus,
@@ -156,7 +161,7 @@ class ExtendedTriggerMessage:
 @dataclass
 class GetInstalledCertificateIds:
     status: GetInstalledCertificateStatus
-    certificate_hash_data: Optional[List] = None
+    certificate_hash_data: Optional[List[CertificateHashData]] = None
 
 
 @dataclass
@@ -164,13 +169,13 @@ class GetCompositeSchedule:
     status: GetCompositeScheduleStatus
     connector_id: Optional[int] = None
     schedule_start: Optional[str] = None
-    charging_schedule: Optional[Dict] = None
+    charging_schedule: Optional[ChargingSchedule] = None
 
 
 @dataclass
 class GetConfiguration:
-    configuration_key: Optional[List] = None
-    unknown_key: Optional[List] = None
+    configuration_key: Optional[KeyValue] = None
+    unknown_key: Optional[List[str]] = None
 
 
 @dataclass
