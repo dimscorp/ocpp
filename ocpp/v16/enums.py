@@ -457,10 +457,20 @@ class FirmwareStatus(StrEnum):
     installed = "Installed"
 
 
-class SignedFirmwareStatus(FirmwareStatus):
+class SignedFirmwareStatus(StrEnum):
     """
     Status of a signed firmware download as reported in SignedFirmwareStatusNotification.req
     """
+
+    # Common for:
+    # FirmwareStatusNotification.req and SignedFirmwareStatusNotification.req
+    downloaded = "Downloaded"
+    download_failed = "DownloadFailed"
+    downloading = "Downloading"
+    idle = "Idle"
+    installation_failed = "InstallationFailed"
+    installing = "Installing"
+    installed = "Installed"
 
     download_scheduled = "DownloadScheduled"
     download_paused = "DownloadPaused"
@@ -572,7 +582,7 @@ class Measurand(StrEnum):
     voltage = "Voltage"
 
 
-class BaseMessageTrigger(StrEnum):
+class MessageTrigger(StrEnum):
     """
     Type of request to be triggered in a TriggerMessage.req
     """
@@ -584,19 +594,20 @@ class BaseMessageTrigger(StrEnum):
     meter_values = "MeterValues"
     status_notification = "StatusNotification"
 
-
-class MessageTrigger(BaseMessageTrigger):
-    """
-    Type of request to be triggered in a TriggerMessage.req
-    """
-
     diagnostics_status_notification = "DiagnosticsStatusNotification"
 
 
-class ExtendedMessageTrigger(BaseMessageTrigger):
+class ExtendedMessageTrigger(StrEnum):
     """
     Type of request to be triggered in an ExtendedTriggerMessage.req
     """
+
+    # Common for TriggerMessage.req and ExtendedTriggerMessage.req
+    boot_notification = "BootNotification"
+    firmware_status_notification = "FirmwareStatusNotification"
+    heartbeat = "Heartbeat"
+    meter_values = "MeterValues"
+    status_notification = "StatusNotification"
 
     log_status_notification = "LogStatusNotification"
     sign_charge_point_certificate = "SignChargePointCertificate"
