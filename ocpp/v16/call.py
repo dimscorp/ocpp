@@ -408,7 +408,7 @@ class DeleteCertificatePayload(DeleteCertificate):
 
 # Dataclass soon to be deprecated use equal class name without the suffix 'Payload'
 @dataclass
-class ExtendedTriggerMessagePayload(ExtendedMessageTrigger):
+class ExtendedTriggerMessagePayload(ExtendedTriggerMessage):
     def __post_init__(self):
         warnings.warn(
             (
