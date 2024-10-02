@@ -2,78 +2,135 @@ import warnings
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
+from ocpp.v201.datatypes import (
+    AuthorizationData,
+    CertificateHashDataType,
+    ChargingLimitType,
+    ChargingNeedsType,
+    ChargingProfileCriterionType,
+    ChargingProfileType,
+    ChargingScheduleType,
+    ChargingStationType,
+    ComponentVariableType,
+    CustomDataType,
+    EVSEType,
+    EventDataType,
+    FirmwareType,
+    GetVariableDataType,
+    IdTokenType,
+    LogParametersType,
+    MessageInfoType,
+    MeterValueType,
+    MonitoringDataType,
+    NetworkConnectionProfileType,
+    OCSPRequestDataType,
+    ReportDataType,
+    SetMonitoringDataType,
+    SetVariableDataType,
+    TransactionType,
+)
+
+from ocpp.v201.enums import (
+    BootReasonType,
+    CertificateActionType,
+    CertificateSigningUseType,
+    ChargingLimitSourceType,
+    ChargingRateUnitType,
+    ComponentCriterionType,
+    ConnectorStatusType,
+    ConnectorType,
+    FirmwareStatusType,
+    GetCertificateIdUseType,
+    InstallCertificateUseType,
+    LogType,
+    MessagePriorityType,
+    MessageStateType,
+    MessageTriggerType,
+    MonitorBaseType,
+    MonitoringCriterionType,
+    OperationalStatusType,
+    PublishFirmwareStatusType,
+    ReportBaseType,
+    ReservationUpdateStatusType,
+    ResetType,
+    TransactionEventType,
+    TriggerReasonType,
+    UpdateType,
+    UploadLogStatusType,
+)
+
 
 @dataclass
 class Authorize:
-    id_token: Dict
+    id_token: IdTokenType
     certificate: Optional[str] = None
-    iso15118_certificate_hash_data: Optional[List] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    iso15118_certificate_hash_data: Optional[List[OCSPRequestDataType]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class BootNotification:
-    charging_station: Dict
-    reason: str
-    custom_data: Optional[Dict[str, Any]] = None
+    charging_station: ChargingStationType
+    reason: BootReasonType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class CancelReservation:
     reservation_id: int
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class CertificateSigned:
     certificate_chain: str
-    certificate_type: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    certificate_type: Optional[CertificateSigningUseType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ChangeAvailability:
-    operational_status: str
-    evse: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    operational_status: OperationalStatusType
+    evse: Optional[EVSEType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearCache:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearChargingProfile:
     charging_profile_id: Optional[int] = None
     charging_profile_criteria: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearDisplayMessage:
     id: int
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearVariableMonitoring:
-    id: List
-    custom_data: Optional[Dict[str, Any]] = None
+    id: List[int]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearedChargingLimit:
     charging_limit_source: str
     evse_id: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class CostUpdated:
     total_cost: float
     transaction_id: str
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -81,10 +138,10 @@ class CustomerInformation:
     request_id: int
     report: bool
     clear: bool
-    customer_certificate: Optional[Dict] = None
-    id_token: Optional[Dict] = None
+    customer_certificate: Optional[CertificateHashDataType] = None
+    id_token: Optional[IdTokenType] = None
     customer_identifier: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -92,149 +149,149 @@ class DataTransfer:
     vendor_id: str
     message_id: Optional[str] = None
     data: Optional[Any] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class DeleteCertificate:
-    certificate_hash_data: Dict
-    custom_data: Optional[Dict[str, Any]] = None
+    certificate_hash_data: CertificateHashDataType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class FirmwareStatusNotification:
-    status: str
+    status: FirmwareStatusType
     request_id: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class Get15118EVCertificate:
     iso15118_schema_version: str
-    action: str
+    action: CertificateActionType
     exi_request: str
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetBaseReport:
     request_id: int
-    report_base: str
-    custom_data: Optional[Dict[str, Any]] = None
+    report_base: ReportBaseType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetCertificateStatus:
-    ocsp_request_data: Dict
-    custom_data: Optional[Dict[str, Any]] = None
+    ocsp_request_data: OCSPRequestDataType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetChargingProfiles:
     request_id: int
-    charging_profile: Dict
+    charging_profile: ChargingProfileCriterionType
     evse_id: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetCompositeSchedule:
     duration: int
     evse_id: int
-    charging_rate_unit: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    charging_rate_unit: Optional[ChargingRateUnitType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetDisplayMessages:
     request_id: int
-    id: Optional[List] = None
-    priority: Optional[str] = None
-    state: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    id: Optional[List[int]] = None
+    priority: Optional[MessagePriorityType] = None
+    state: Optional[MessageStateType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetInstalledCertificateIds:
-    certificate_type: Optional[List] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    certificate_type: Optional[List[GetCertificateIdUseType]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetLocalListVersion:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetLog:
-    log: Dict
-    log_type: str
+    log: LogParametersType
+    log_type: LogType
     request_id: int
     retries: Optional[int] = None
     retry_interval: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetMonitoringReport:
     request_id: int
-    component_variable: Optional[List] = None
-    monitoring_criteria: Optional[List] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    component_variable: Optional[List[ComponentVariableType]] = None
+    monitoring_criteria: Optional[List[MonitoringCriterionType]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetReport:
     request_id: int
-    component_variable: Optional[List] = None
-    component_criteria: Optional[List] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    component_variable: Optional[List[ComponentVariableType]] = None
+    component_criteria: Optional[List[ComponentCriterionType]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetTransactionStatus:
     transaction_id: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetVariables:
-    get_variable_data: List
-    custom_data: Optional[Dict[str, Any]] = None
+    get_variable_data: List[GetVariableDataType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class Heartbeat:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class InstallCertificate:
-    certificate_type: str
+    certificate_type: InstallCertificateUseType
     certificate: str
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class LogStatusNotification:
-    status: str
+    status: UploadLogStatusType
     request_id: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class MeterValues:
     evse_id: int
-    meter_value: List
-    custom_data: Optional[Dict[str, Any]] = None
+    meter_value: List[MeterValueType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyChargingLimit:
-    charging_limit: Dict
-    charging_schedule: Optional[List] = None
+    charging_limit: ChargingLimitType
+    charging_schedule: Optional[List[ChargingScheduleType]] = None
     evse_id: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -244,40 +301,40 @@ class NotifyCustomerInformation:
     generated_at: str
     request_id: int
     tbc: Optional[bool] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyDisplayMessages:
     request_id: int
-    message_info: Optional[List] = None
+    message_info: Optional[List[MessageInfoType]] = None
     tbc: Optional[bool] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyEVChargingNeeds:
-    charging_needs: Dict
+    charging_needs: ChargingNeedsType
     evse_id: int
     max_schedule_tuples: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyEVChargingSchedule:
     time_base: str
-    charging_schedule: Dict
+    charging_schedule: ChargingScheduleType
     evse_id: int
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyEvent:
     generated_at: str
     seq_no: int
-    event_data: List
+    event_data: List[EventDataType]
     tbc: Optional[bool] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -285,9 +342,9 @@ class NotifyMonitoringReport:
     request_id: int
     seq_no: int
     generated_at: str
-    monitor: Optional[List] = None
+    monitor: Optional[List[MonitoringDataType]] = None
     tbc: Optional[bool] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -295,9 +352,9 @@ class NotifyReport:
     request_id: int
     generated_at: str
     seq_no: int
-    report_data: Optional[List] = None
+    report_data: Optional[List[ReportDataType]] = None
     tbc: Optional[bool] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -307,66 +364,66 @@ class PublishFirmware:
     request_id: int
     retries: Optional[int] = None
     retry_interval: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class PublishFirmwareStatusNotification:
-    status: str
-    location: Optional[List] = None
+    status: PublishFirmwareStatusType
+    location: Optional[List[str]] = None
     request_id: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ReportChargingProfiles:
     request_id: int
-    charging_limit_source: str
-    charging_profile: List
+    charging_limit_source: ChargingLimitSourceType
+    charging_profile: List[ChargingProfileType]
     evse_id: int
     tbc: Optional[bool] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class RequestStartTransaction:
-    id_token: Dict
+    id_token: IdTokenType
     remote_start_id: int
     evse_id: Optional[int] = None
-    group_id_token: Optional[Dict] = None
-    charging_profile: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    group_id_token: Optional[IdTokenType] = None
+    charging_profile: Optional[ChargingProfileType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class RequestStopTransaction:
     transaction_id: str
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ReservationStatusUpdate:
     reservation_id: int
-    reservation_update_status: str
-    custom_data: Optional[Dict[str, Any]] = None
+    reservation_update_status: ReservationUpdateStatusType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ReserveNow:
     id: int
     expiry_date_time: str
-    id_token: Dict
-    connector_type: Optional[str] = None
+    id_token: IdTokenType
+    connector_type: Optional[ConnectorType] = None
     evse_id: Optional[int] = None
-    group_id_token: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    group_id_token: Optional[IdTokenType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class Reset:
-    type: str
+    type: ResetType
     evse_id: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -374,121 +431,121 @@ class SecurityEventNotification:
     type: str
     timestamp: str
     tech_info: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SendLocalList:
     version_number: int
-    update_type: str
-    local_authorization_list: Optional[List] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    update_type: UpdateType
+    local_authorization_list: Optional[List[AuthorizationData]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetChargingProfile:
     evse_id: int
-    charging_profile: Dict
-    custom_data: Optional[Dict[str, Any]] = None
+    charging_profile: ChargingProfileType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetDisplayMessage:
-    message: Dict
-    custom_data: Optional[Dict[str, Any]] = None
+    message: MessageInfoType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetMonitoringBase:
-    monitoring_base: str
-    custom_data: Optional[Dict[str, Any]] = None
+    monitoring_base: MonitorBaseType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetMonitoringLevel:
     severity: int
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetNetworkProfile:
     configuration_slot: int
-    connection_data: Dict
-    custom_data: Optional[Dict[str, Any]] = None
+    connection_data: NetworkConnectionProfileType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetVariableMonitoring:
-    set_monitoring_data: List
-    custom_data: Optional[Dict[str, Any]] = None
+    set_monitoring_data: List[SetMonitoringDataType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetVariables:
-    set_variable_data: List
-    custom_data: Optional[Dict[str, Any]] = None
+    set_variable_data: List[SetVariableDataType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SignCertificate:
     csr: str
-    certificate_type: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    certificate_type: Optional[CertificateSigningUseType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class StatusNotification:
     timestamp: str
-    connector_status: str
+    connector_status: ConnectorStatusType
     evse_id: int
     connector_id: int
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class TransactionEvent:
-    event_type: str
+    event_type: TransactionEventType
     timestamp: str
-    trigger_reason: str
+    trigger_reason: TriggerReasonType
     seq_no: int
-    transaction_info: Dict
-    meter_value: Optional[List] = None
+    transaction_info: TransactionType
+    meter_value: Optional[List[MeterValueType]] = None
     offline: Optional[bool] = None
     number_of_phases_used: Optional[int] = None
     cable_max_current: Optional[int] = None
     reservation_id: Optional[int] = None
-    evse: Optional[Dict] = None
-    id_token: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    evse: Optional[EVSEType] = None
+    id_token: Optional[IdTokenType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class TriggerMessage:
-    requested_message: str
-    evse: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    requested_message: MessageTriggerType
+    evse: Optional[EVSEType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class UnlockConnector:
     evse_id: int
     connector_id: int
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class UnpublishFirmware:
     checksum: str
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class UpdateFirmware:
     request_id: int
-    firmware: Dict
+    firmware: FirmwareType
     retries: Optional[int] = None
     retry_interval: Optional[int] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 # Dataclass soon to be deprecated use equal class name without the suffix 'Payload'

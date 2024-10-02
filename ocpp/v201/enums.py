@@ -337,9 +337,7 @@ class ChargingProfilePurposeType(StrEnum):
     MUST be set to TxProfile.
     """
 
-    charging_station_external_constraints = (
-        "ChargingStationExternalConstraints"  # noqa: E501
-    )
+    charging_station_external_constraints = "ChargingStationExternalConstraints"  # noqa: E501
     charging_station_max_profile = "ChargingStationMaxProfile"
     tx_default_profile = "TxDefaultProfile"
     tx_profile = "TxProfile"
@@ -864,6 +862,7 @@ class MessageStateType(StrEnum):
     charging = "Charging"
     faulted = "Faulted"
     idle = "Idle"
+    unavailable = "Unavailable"
 
 
 class MessageTriggerType(StrEnum):

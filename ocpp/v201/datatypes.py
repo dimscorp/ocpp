@@ -5,6 +5,13 @@ from ocpp.v201 import enums
 
 
 @dataclass
+class CustomDataType:
+    """CustomDataType is used by: AuthorizeRequest"""
+
+    vendor_id: str
+
+
+@dataclass
 class ACChargingParametersType:
     """
     EV AC charging parameters.
@@ -15,6 +22,7 @@ class ACChargingParametersType:
     ev_min_current: int
     ev_max_current: int
     ev_max_voltage: int
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -27,6 +35,7 @@ class AdditionalInfoType:
 
     additional_id_token: str
     type: str
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -44,6 +53,7 @@ class APNType:
     sim_pin: Optional[int] = None
     preferred_network: Optional[str] = None
     use_only_preferred_network: Optional[bool] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -57,6 +67,7 @@ class CertificateHashDataType:
     issuer_name_hash: str
     issuer_key_hash: str
     serial_number: str
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -76,6 +87,7 @@ class ChargingLimitType:
 
     charging_limit_source: enums.ChargingLimitSourceType
     is_grid_critical: Optional[bool] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -93,6 +105,7 @@ class DCChargingParametersType:
     ev_energy_capacity: Optional[int] = None
     full_soc: Optional[int] = None
     bulk_soc: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -105,6 +118,7 @@ class ChargingNeedsType:
     departure_time: Optional[str] = None
     ac_charging_parameters: Optional[ACChargingParametersType] = None
     dc_charging_parameters: Optional[DCChargingParametersType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -119,6 +133,7 @@ class ChargingProfileCriterionType:
     stack_level: Optional[int] = None
     charging_profile_id: Optional[List[int]] = None
     charging_limit_source: Optional[List[enums.ChargingLimitSourceType]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -134,6 +149,7 @@ class ChargingSchedulePeriodType:
     limit: float
     number_phases: Optional[int] = None
     phase_to_use: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -142,6 +158,7 @@ class RelativeTimeIntervalType:
 
     start: int
     duration: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -153,6 +170,7 @@ class CostType:
     cost_kind: enums.CostKindType
     amount: int
     amount_multiplier: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -163,6 +181,7 @@ class ConsumptionCostType:
 
     start_value: float
     cost: List[CostType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -172,6 +191,7 @@ class SalesTariffEntryType:
     relative_time_interval: RelativeTimeIntervalType
     consumption_cost: Optional[List[ConsumptionCostType]] = None
     e_price_level: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -185,6 +205,7 @@ class SalesTariffType:
     sales_tariff_entry: List[SalesTariffEntryType]
     sales_tariff_description: Optional[str] = None
     num_e_price_levels: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -203,6 +224,7 @@ class ChargingScheduleType:
     duration: Optional[int] = None
     min_charging_rate: Optional[float] = None
     sales_tariff: Optional[SalesTariffType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -223,6 +245,7 @@ class ChargingProfileType:
     valid_to: Optional[str] = None
     transaction_id: Optional[str] = None
     recurrency_kind: Optional[enums.RecurrencyKindType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -236,6 +259,7 @@ class ClearChargingProfileType:
     evse_id: Optional[int] = None
     charging_profile_purpose: Optional[enums.ChargingProfilePurposeType] = None
     stack_level: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -289,6 +313,7 @@ class EVSEType:
 
     id: int
     connector_id: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -310,6 +335,7 @@ class ComponentType:
     name: str
     instance: Optional[str] = None
     evse: Optional[EVSEType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -330,6 +356,7 @@ class VariableType:
 
     name: str
     instance: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -343,6 +370,7 @@ class ComponentVariableType:
 
     component: ComponentType
     variable: Optional[VariableType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -356,27 +384,6 @@ class CompositeScheduleType:
     schedule_start: str
     charging_rate_unit: enums.ChargingRateUnitType
     charging_schedule_period: List[ChargingSchedulePeriodType]
-
-
-@dataclass
-class CostType:
-    """
-    CostType is used by: ConsumptionCostType
-    """
-
-    cost_kind: enums.CostKindType
-    amount: int
-    amount_multiplier: Optional[int] = None
-
-
-@dataclass
-class ConsumptionCostType:
-    """
-    ConsumptionCostType is used by: SalesTariffEntryType
-    """
-
-    start_value: float
-    cost: List[CostType]
 
 
 @dataclass
@@ -399,6 +406,7 @@ class EventDataType:
     cleared: Optional[bool] = None
     transaction_id: Optional[str] = None
     variable_monitoring_id: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -414,6 +422,7 @@ class FirmwareType:
     install_date_time: Optional[str] = None
     signing_certificate: Optional[str] = None
     signature: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -426,6 +435,7 @@ class GetVariableDataType:
     component: ComponentType
     variable: VariableType
     attribute_type: Optional[enums.AttributeType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -456,6 +466,7 @@ class IdTokenType:
     id_token: str
     type: enums.IdTokenType
     additional_info: Optional[List[AdditionalInfoType]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -470,6 +481,7 @@ class MessageContentType:
     format: enums.MessageFormatType
     content: str
     language: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -491,6 +503,7 @@ class IdTokenInfoType:
     language_2: Optional[str] = None
     group_id_token: Optional[IdTokenType] = None
     personal_message: Optional[MessageContentType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -502,6 +515,7 @@ class AuthorizationData:
 
     id_token: IdTokenType
     id_token_info: Optional[IdTokenInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -514,6 +528,7 @@ class LogParametersType:
     remote_location: str
     oldest_timestamp: Optional[str] = None
     latest_timestamp: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -533,6 +548,7 @@ class MessageInfoType:
     end_date_time: Optional[str] = None
     transaction_id: Optional[str] = None
     display: Optional[ComponentType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -546,6 +562,7 @@ class SignedMeterValueType:
     signing_method: str
     encoding_method: str
     public_key: str
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -557,6 +574,7 @@ class UnitOfMeasureType:
 
     unit: Optional[str] = None
     multiplier: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -577,6 +595,7 @@ class SampledValueType:
     location: Optional[enums.LocationType] = None
     signed_meter_value: Optional[SignedMeterValueType] = None
     unit_of_measure: Optional[UnitOfMeasureType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -590,6 +609,7 @@ class MeterValueType:
 
     timestamp: str
     sampled_value: List[SampledValueType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -602,6 +622,7 @@ class ModemType:
 
     iccid: Optional[str] = None
     imsi: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -617,6 +638,7 @@ class VariableMonitoringType:
     value: float
     type: enums.MonitorType
     severity: int
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -629,6 +651,7 @@ class MonitoringDataType:
     component: ComponentType
     variable: VariableType
     variable_monitoring: List[VariableMonitoringType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -644,6 +667,7 @@ class VPNType:
     key: str
     type: enums.VPNType
     group: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -662,6 +686,7 @@ class NetworkConnectionProfileType:
     ocpp_interface: enums.OCPPInterfaceType
     vpn: Optional[VPNType] = None
     apn: Optional[APNType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -676,6 +701,7 @@ class ChargingStationType:
     modem: Optional[ModemType] = None
     serial_number: Optional[str] = None
     firmware_version: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -690,6 +716,7 @@ class OCSPRequestDataType:
     issuer_key_hash: str
     serial_number: str
     responder_url: str
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -704,6 +731,7 @@ class VariableAttributeType:
     mutability: Optional[enums.MutabilityType] = None
     persistent: Optional[bool] = None
     constant: Optional[bool] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -719,6 +747,7 @@ class VariableCharacteristicsType:
     min_limit: Optional[float] = None
     max_limit: Optional[float] = None
     values_list: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -733,19 +762,7 @@ class ReportDataType:
     variable: VariableType
     variable_attribute: List[VariableAttributeType]
     variable_characteristics: Optional[VariableCharacteristicsType] = None
-
-
-@dataclass
-class SalesTariffType:
-    """
-    This dataType is based on dataTypes from ISO 15118-2.
-    SalesTariffType is used by: ChargingScheduleType
-    """
-
-    id: int
-    sales_tariff_entry: List[SalesTariffEntryType]
-    sales_tariff_description: Optional[str] = None
-    num_e_price_levels: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -762,6 +779,7 @@ class SetMonitoringDataType:
     variable: VariableType
     id: Optional[int] = None
     transaction: Optional[bool] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -788,6 +806,7 @@ class SetVariableDataType:
     component: ComponentType
     variable: VariableType
     attribute_type: Optional[enums.AttributeType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -810,3 +829,4 @@ class TransactionType:
     time_spent_charging: Optional[int] = None
     stopped_reason: Optional[enums.ReasonType] = None
     remote_start_id: Optional[int] = None
+    custom_data: Optional[CustomDataType] = None

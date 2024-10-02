@@ -103,7 +103,7 @@ class GetCompositeSchedule:
 
 @dataclass
 class GetConfiguration:
-    key: Optional[List] = None
+    key: Optional[List[str]] = None
 
 
 @dataclass
