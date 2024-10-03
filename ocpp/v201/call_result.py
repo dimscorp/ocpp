@@ -1,426 +1,473 @@
 import warnings
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
+
+from ocpp.v201.datatypes import (
+    CertificateHashDataChainType,
+    ClearMonitoringResultType,
+    CompositeScheduleType,
+    CustomDataType,
+    GetVariableResultType,
+    IdTokenInfoType,
+    MessageContentType,
+    SetMonitoringResultType,
+    SetVariableResultType,
+    StatusInfoType,
+)
+from ocpp.v201.enums import (
+    AuthorizeCertificateStatusType,
+    CancelReservationStatusType,
+    CertificateSignedStatusType,
+    ChangeAvailabilityStatusType,
+    ChargingProfileStatus,
+    ClearCacheStatusType,
+    ClearChargingProfileStatusType,
+    ClearMessageStatusType,
+    CustomerInformationStatusType,
+    DataTransferStatusType,
+    DeleteCertificateStatusType,
+    DisplayMessageStatusType,
+    GenericDeviceModelStatusType,
+    GenericStatusType,
+    GetCertificateStatusType,
+    GetChargingProfileStatusType,
+    GetDisplayMessagesStatusType,
+    GetInstalledCertificateStatusType,
+    InstallCertificateStatusType,
+    Iso15118EVCertificateStatusType,
+    LogStatusType,
+    NotifyEVChargingNeedsStatusType,
+    RegistrationStatusType,
+    RequestStartStopStatusType,
+    ReserveNowStatusType,
+    ResetStatusType,
+    SendLocalListStatusType,
+    SetNetworkProfileStatusType,
+    TriggerMessageStatusType,
+    UnlockStatusType,
+    UnpublishFirmwareStatusType,
+    UpdateFirmwareStatusType,
+)
 
 
 @dataclass
 class Authorize:
-    id_token_info: Dict
-    certificate_status: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    id_token_info: IdTokenInfoType
+    certificate_status: Optional[AuthorizeCertificateStatusType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class BootNotification:
     current_time: str
     interval: int
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: RegistrationStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class CancelReservation:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: CancelReservationStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class CertificateSigned:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: CertificateSignedStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ChangeAvailability:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: ChangeAvailabilityStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearCache:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: ClearCacheStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearChargingProfile:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: ClearChargingProfileStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearDisplayMessage:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: ClearMessageStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearVariableMonitoring:
-    clear_monitoring_result: List
-    custom_data: Optional[Dict[str, Any]] = None
+    clear_monitoring_result: List[ClearMonitoringResultType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ClearedChargingLimit:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class CostUpdated:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class CustomerInformation:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: CustomerInformationStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class DataTransfer:
-    status: str
-    status_info: Optional[Dict] = None
+    status: DataTransferStatusType
+    status_info: Optional[StatusInfoType] = None
     data: Optional[Any] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class DeleteCertificate:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: DeleteCertificateStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class FirmwareStatusNotification:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class Get15118EVCertificate:
-    status: str
+    status: Iso15118EVCertificateStatusType
     exi_response: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetBaseReport:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericDeviceModelStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetCertificateStatus:
-    status: str
-    status_info: Optional[Dict] = None
+    status: GetCertificateStatusType
+    status_info: Optional[StatusInfoType] = None
     ocsp_result: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetChargingProfiles:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GetChargingProfileStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetCompositeSchedule:
-    status: str
-    status_info: Optional[Dict] = None
-    schedule: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericStatusType
+    status_info: Optional[StatusInfoType] = None
+    schedule: Optional[CompositeScheduleType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetDisplayMessages:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GetDisplayMessagesStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetInstalledCertificateIds:
-    status: str
-    status_info: Optional[Dict] = None
-    certificate_hash_data_chain: Optional[List] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GetInstalledCertificateStatusType
+    status_info: Optional[StatusInfoType] = None
+    certificate_hash_data_chain: Optional[CertificateHashDataChainType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetLocalListVersion:
     version_number: int
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetLog:
-    status: str
-    status_info: Optional[Dict] = None
+    status: LogStatusType
+    status_info: Optional[StatusInfoType] = None
     filename: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetMonitoringReport:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericDeviceModelStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetReport:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericDeviceModelStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetTransactionStatus:
     messages_in_queue: bool
     ongoing_indicator: Optional[bool] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class GetVariables:
-    get_variable_result: List
-    custom_data: Optional[Dict[str, Any]] = None
+    get_variable_result: List[GetVariableResultType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class Heartbeat:
     current_time: str
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class InstallCertificate:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: InstallCertificateStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class LogStatusNotification:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class MeterValues:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyChargingLimit:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyCustomerInformation:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyDisplayMessages:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyEVChargingNeeds:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: NotifyEVChargingNeedsStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyEVChargingSchedule:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyEvent:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyMonitoringReport:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class NotifyReport:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class PublishFirmware:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class PublishFirmwareStatusNotification:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ReportChargingProfiles:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class RequestStartTransaction:
-    status: str
-    status_info: Optional[Dict] = None
+    status: RequestStartStopStatusType
+    status_info: Optional[StatusInfoType] = None
     transaction_id: Optional[str] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class RequestStopTransaction:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: RequestStartStopStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ReservationStatusUpdate:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class ReserveNow:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: ReserveNowStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class Reset:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: ResetStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SecurityEventNotification:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SendLocalList:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: SendLocalListStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetChargingProfile:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: ChargingProfileStatus
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetDisplayMessage:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: DisplayMessageStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetMonitoringBase:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericDeviceModelStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetMonitoringLevel:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetNetworkProfile:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: SetNetworkProfileStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetVariableMonitoring:
-    set_monitoring_result: List
-    custom_data: Optional[Dict[str, Any]] = None
+    set_monitoring_result: List[SetMonitoringResultType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SetVariables:
-    set_variable_result: List
-    custom_data: Optional[Dict[str, Any]] = None
+    set_variable_result: List[SetVariableResultType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class SignCertificate:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: GenericStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class StatusNotification:
-    custom_data: Optional[Dict[str, Any]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class TransactionEvent:
     total_cost: Optional[int] = None
     charging_priority: Optional[int] = None
-    id_token_info: Optional[Dict] = None
-    updated_personal_message: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    id_token_info: Optional[IdTokenInfoType] = None
+    updated_personal_message: Optional[MessageContentType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class TriggerMessage:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: TriggerMessageStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class UnlockConnector:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: UnlockStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class UnpublishFirmware:
-    status: str
-    custom_data: Optional[Dict[str, Any]] = None
+    status: UnpublishFirmwareStatusType
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
 class UpdateFirmware:
-    status: str
-    status_info: Optional[Dict] = None
-    custom_data: Optional[Dict[str, Any]] = None
+    status: UpdateFirmwareStatusType
+    status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 # Dataclass soon to be deprecated use equal class name without the suffix 'Payload'

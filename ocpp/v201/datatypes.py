@@ -79,6 +79,7 @@ class CertificateHashDataChainType:
     certificate_type: enums.GetCertificateIdUseType
     certificate_hash_data: CertificateHashDataType
     child_certificate_hash_data: Optional[List[CertificateHashDataType]] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -290,6 +291,7 @@ class StatusInfoType:
 
     reason_code: str
     additional_info: Optional[str] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -301,6 +303,7 @@ class ClearMonitoringResultType:
     status: enums.ClearMonitoringStatusType
     id: int
     status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -384,6 +387,7 @@ class CompositeScheduleType:
     schedule_start: str
     charging_rate_unit: enums.ChargingRateUnitType
     charging_schedule_period: List[ChargingSchedulePeriodType]
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -451,6 +455,7 @@ class GetVariableResultType:
     attribute_type: Optional[enums.AttributeType] = None
     attribute_value: Optional[str] = None
     attribute_status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -796,6 +801,7 @@ class SetMonitoringResultType:
     variable: VariableType
     id: Optional[int] = None
     status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
@@ -818,6 +824,7 @@ class SetVariableResultType:
     variable: VariableType
     attribute_type: Optional[enums.AttributeType] = None
     attribute_status_info: Optional[StatusInfoType] = None
+    custom_data: Optional[CustomDataType] = None
 
 
 @dataclass
