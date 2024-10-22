@@ -173,4 +173,4 @@ class TransactionData:
     """
 
     timestamp: str
-    sampledValue: List[SampledValue]
+    sampled_value: List[SampledValue]
